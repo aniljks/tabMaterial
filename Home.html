@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Materialize CSS Tabs with External HTML Pages</title>
+    <!-- Import Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  </head>
+  <body>
+    <!-- Tabs Structure -->
+    <div class="row">
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab"><a target="frContent" href="tab1.html">Tab 1</a></li>
+          <li class="tab"><a target="frContent" href="tab2.html">Tab 2</a></li>
+          <li class="tab"><a target="frContent" href="tab3.html">Tab 3</a></li>
+        </ul>
+      </div>
+    </div>
+
+   
+
+    <!-- Tab Content -->
+    <div id="tabContent" class="row">
+        <iframe name="frContent" style="width: 100%; height: auto;">
+
+        </iframe>
+    </div>
+
+    <!-- Import Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+      // Initialize Tabs
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.tabs');
+        var options = {};
+        var instance = M.Tabs.init(elems, options);
+
+        // Load default tab content
+        loadTabContent('tab1.html');
+      });
+
+      // Load tab content
+      function loadTabContent(url) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById('tabContent').innerHTML = this.responseText;
+          }
+        };
+        xhttp.open('GET', url, true);
+        xhttp.send();
+      }
+    </script>
+  </body>
+</html>
